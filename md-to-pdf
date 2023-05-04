@@ -1,0 +1,29 @@
+#!/bin/bash
+if [ -z "$1" ]
+then
+    echo "You need to pass the path of the markdown to compile"
+    exit 1
+fi
+
+pandoc $1 -o __md_to_pdf_temp__.tex --template=../template.tex
+
+texify --pdf --engine=xetex --tex-option=--shell-escape __md_to_pdf_temp__.tex
+
+if [ -z "$2" ]
+then
+    mv __md_to_pdf_temp__.pdf out.pdf
+else
+    mv __md_to_pdf_temp__.pdf $2
+fi
+
+rm __md_to_pdf_temp__.tex
+[ -e __md_to_pdf_temp__.aux ] && rm __md_to_pdf_temp__.aux
+[ -e __md_to_pdf_temp__.log ] && rm __md_to_pdf_temp__.log
+[ -e __md_to_pdf_temp__.toc ] && rm __md_to_pdf_temp__.toc
+
+if [ -e svg-inkscape ] 
+then
+    find ./svg-inkscape -name '*-tex.pdf' -delete
+    find ./svg-inkscape -name '*-tex.pdf_tex' -delete
+    "$(ls -A ./svg-inkscape)" ] || rm -r svg-inkscape
+fi
