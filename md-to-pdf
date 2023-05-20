@@ -5,7 +5,7 @@ then
     exit 1
 fi
 
-pandoc $1 -o __md_to_pdf_temp__.tex --template=../template.tex
+pandoc $1 -o __md_to_pdf_temp__.tex --template=./template.tex
 
 texify --pdf --engine=xetex --tex-option=--shell-escape __md_to_pdf_temp__.tex
 
