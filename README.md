@@ -25,3 +25,9 @@ If you want to embed SVG images in your markdown file, you need to install the [
 ```
 brew install inkscape
 ```
+
+# Usage
+
+```
+./md-to-pdf document.md document.pdf
+```
